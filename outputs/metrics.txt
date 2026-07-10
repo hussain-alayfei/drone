@@ -1,0 +1,27 @@
+Soil-texture classifier from gamma-ray spectrometry
+===================================================
+
+Test accuracy : 0.702
+5-fold CV     : 0.693 +/- 0.024
+
+Per-class report (held-out test set):
+              precision    recall  f1-score   support
+
+        Clay      0.780     0.736     0.757       125
+        Loam      0.484     0.488     0.486       125
+       Sandy      0.944     0.944     0.944       125
+       Silty      0.611     0.640     0.625       125
+
+    accuracy                          0.702       500
+   macro avg      0.705     0.702     0.703       500
+weighted avg      0.705     0.702     0.703       500
+
+Feature importances (higher = more discriminative):
+  K_pct                  0.2188
+  Th_ppm                 0.2061
+  total_count_nGy_h      0.1972
+  U_ppm                  0.1396
+  Th_K_ratio             0.0625
+  U_K_ratio              0.0621
+  Th_U_ratio             0.0583
+  Cs137_Bq_kg            0.0553
