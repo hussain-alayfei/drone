@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/*
+  نظام ألوان «عين» — مستخرج من الهوية البصرية للعرض التقديمي.
+  المرجع الملزم: web/DESIGN_SPEC.md — أي لون خارج هذه اللوحة ممنوع.
+*/
+@theme {
+  --color-espresso: #3e2f26;
+  --color-espresso-deep: #2a211b;
+  --color-gold: #bfa06e;
+  --color-gold-strong: #a98d5f;
+  --color-beige-card: #dcc9a3;
+  --color-cream: #ede3cf;
+  --color-sand: #f7f2e8;
+  --color-paper: #ffffff;
+  --color-olive: #5c5f3a;
+  --color-wine: #4a2e35;
+  --color-leaf: #4a7c3f;
+  --color-wave: #dff0e2;
+  --color-ink: #2a2a2a;
+  --color-ink-soft: #5b5148;
+
+  --font-display: "Alexandria", sans-serif;
+  --font-body: "IBM Plex Sans Arabic", sans-serif;
+
+  --shadow-soft: 0 2px 12px rgb(42 33 27 / 0.08);
+
+  --text-base: 1.0625rem; /* 17px — العربي يحتاج أكبر قليلاً */
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+.display {
+  font-family: var(--font-display);
+}
+
+/* الأرقام اللاتينية داخل النص العربي (أسعار/نسب) تأخذ خط العرض */
+.num {
+  font-family: var(--font-display);
+  font-feature-settings: "tnum";
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-espresso-deep);
+}
+
+/* نبض فحص الخريطة */
+@keyframes ain-pulse {
+  0% {
+    opacity: 0.85;
+    transform: scale(0.4);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3.2);
+  }
+}

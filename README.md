@@ -10,6 +10,12 @@ and drops biodegradable **seed capsules**.
 التحليل خلف فكرة الدرون الذي يمسح الأرض ويُطلق **الرصاصة/الكبسولة الزراعية**
 القابلة للتحلل.
 
+> **🌐 Website / الموقع:** the `web/` folder hosts the full Arabic (RTL)
+> marketing + live-demo site for the project («عين»): an interactive
+> Saudi-regions soil scan running **this exact model in the browser**, a
+> scroll-driven 3D seed-capsule scene, honest metrics, pricing, and team.
+> See `web/README.md` for dev/deploy instructions.
+
 ---
 
 ## The science / الأساس العلمي

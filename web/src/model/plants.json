@@ -1,0 +1,106 @@
+{
+ "Sandy": {
+  "note": "احتفاظ منخفض بالماء والمغذيات — الأولوية لمثبّتات الكثبان والأنواع عميقة الجذور، مع مادة عضوية داخل الكبسولة.",
+  "note_en": "Low nutrient & water retention. Prioritise dune stabilisers and deep-rooted natives; add organic matter in the seed capsule.",
+  "plants": [
+   {
+    "en": "Ghaf (Prosopis cineraria)",
+    "ar": "الغاف",
+    "why": "جذر وتدي عميق، يثبّت الكثبان، قليل الماء"
+   },
+   {
+    "en": "Desert thorn / Sidr (Ziziphus spina-christi)",
+    "ar": "السدر",
+    "why": "محلي، يتحمل الجفاف والحرارة"
+   },
+   {
+    "en": "Saltbush (Atriplex)",
+    "ar": "القطف/الرغل",
+    "why": "يربط الرمال ويتحمل الملوحة"
+   },
+   {
+    "en": "Prickly pear cactus (Opuntia)",
+    "ar": "الصبار",
+    "why": "ماء قليل جداً، يكافح انجراف التربة"
+   }
+  ]
+ },
+ "Silty": {
+  "note": "احتفاظ جيد بالرطوبة لكنها عرضة للانجراف — المحاصيل الغطائية والسمر تثبّت السطح وتعيد بناء التربة.",
+  "note_en": "Good moisture retention, erosion-prone. Cover crops + acacias hold the surface and rebuild structure.",
+  "plants": [
+   {
+    "en": "Acacia (Vachellia tortilis)",
+    "ar": "السمر/الطلح",
+    "why": "سنط محلي، يثبّت النيتروجين في التربة"
+   },
+   {
+    "en": "Moringa (Moringa peregrina)",
+    "ar": "المورينجا/اليسر",
+    "why": "سريع النمو، متكيف مع الجفاف"
+   },
+   {
+    "en": "Sidr (Ziziphus spina-christi)",
+    "ar": "السدر",
+    "why": "شجرة ظل منتجة ومحلية"
+   },
+   {
+    "en": "Sorghum / millet cover",
+    "ar": "الذرة/الدخن",
+    "why": "محصول غطائي يمسك الطمي"
+   }
+  ]
+ },
+ "Loam": {
+  "note": "أفضل تربة زراعية عامة — أوسع خيارات للزراعة وأعلى نسبة نجاح متوقعة للتشجير.",
+  "note_en": "Best general agricultural soil. Widest planting choice; highest afforestation success expected.",
+  "plants": [
+   {
+    "en": "Date palm (Phoenix dactylifera)",
+    "ar": "النخيل",
+    "why": "محصول اللوم المثالي وعالي القيمة"
+   },
+   {
+    "en": "Olive (Olea europaea)",
+    "ar": "الزيتون",
+    "why": "يحب اللوم ويتحمل الجفاف بعد التثبيت"
+   },
+   {
+    "en": "Fig (Ficus carica)",
+    "ar": "التين",
+    "why": "منتج على الترب المتوازنة"
+   },
+   {
+    "en": "Acacia / Sidr mix",
+    "ar": "السمر والسدر",
+    "why": "مصدّ رياح زراعي حرجي"
+   }
+  ]
+ },
+ "Clay": {
+  "note": "غنية بالمغذيات لكن صرفها ضعيف وتتصلب عند الجفاف — الأنسب أنواع تتحمل الملوحة وركود الماء.",
+  "note_en": "High nutrients but poor drainage / hard when dry. Use salt- and waterlogging-tolerant species; avoid shallow-rooted crops.",
+  "plants": [
+   {
+    "en": "Eucalyptus (drought-tolerant sp.)",
+    "ar": "الكينا/الكافور",
+    "why": "يتعامل مع الطين الثقيل الحابس للماء"
+   },
+   {
+    "en": "Tamarix / Athel (Tamarix aphylla)",
+    "ar": "الأثل",
+    "why": "مصدّ رياح يتحمل الملح والطين"
+   },
+   {
+    "en": "Pomegranate (Punica granatum)",
+    "ar": "الرمان",
+    "why": "يتحمل الترب الثقيلة"
+   },
+   {
+    "en": "Conocarpus (windbreak, with care)",
+    "ar": "الكونوكاربس",
+    "why": "قوي التحمل — مع الانتباه لاستهلاك الماء"
+   }
+  ]
+ }
+}
