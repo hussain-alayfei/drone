@@ -4,46 +4,57 @@ Soil texture from real gamma-ray spectrometry
 data     : 4,524 points, Western US
 radiometrics : USGS NURE / BMNUS airborne survey
 labels       : ISRIC SoilGrids -> USDA texture triangle
-features (5): K, K_sd, K_prob, K_nbr, K_grad
-
-!! K-ONLY RUN -- missing Th, U.
-   This is a LOWER BOUND. Download the eU/eTh files and re-run
-   to give the model the channels it was designed for.
+features (19): K, U, Th, Th_K, U_K, Th_U, total_count, K_sd, U_sd, Th_sd, K_prob, U_prob, Th_prob, K_nbr, U_nbr, Th_nbr, K_grad, U_grad, Th_grad
 
 majority-class baseline : 0.552  (always guess Loam)
   Any honest result must beat this. It is the number to argue with.
 
 SPATIAL BLOCK CV  (test blocks geographically disjoint from train)
 --------------------------------------------------------------
-  clay  R2 = -0.111   MAE =  5.85 percentage points
-  sand  R2 = -0.074   MAE = 10.43 percentage points
+  clay  R2 = -0.013   MAE =  5.57 percentage points
+  sand  R2 =  0.055   MAE =  9.83 percentage points
 
-  derived texture-class accuracy : 0.544
-  vs majority baseline            : 0.552  (-0.008)
+  derived texture-class accuracy : 0.556
+  vs majority baseline            : 0.552  (+0.004)
 
               precision    recall  f1-score   support
 
-       Sandy      0.354     0.062     0.105       921
-       Silty      0.333     0.003     0.006       346
-        Loam      0.555     0.958     0.703      2497
-        Clay      0.216     0.014     0.027       760
+       Sandy      0.485     0.127     0.201       921
+       Silty      0.188     0.009     0.017       346
+        Loam      0.563     0.951     0.707      2497
+        Clay      0.417     0.026     0.050       760
 
-    accuracy                          0.544      4524
-   macro avg      0.365     0.259     0.210      4524
-weighted avg      0.440     0.544     0.414      4524
+    accuracy                          0.556      4524
+   macro avg      0.413     0.278     0.244      4524
+weighted avg      0.494     0.556     0.441      4524
 
 RANDOM-SPLIT CV  (reported only to show what it overstates)
 --------------------------------------------------------------
-  clay R2  random  0.056   vs spatial -0.111
-  accuracy random  0.556   vs spatial  0.544
+  clay R2  random  0.295   vs spatial -0.013
+  accuracy random  0.608   vs spatial  0.556
 
-  Little gap -- either weak spatial autocorrelation, or the blocks
-  are too small to separate. Worth checking before trusting either.
+  The random split is +0.052 optimistic. That gap IS the spatial
+  leak: neighbouring 2 km points landing on both sides of the split.
+  The spatial number is the one to quote.
 
 FEATURE IMPORTANCE
 --------------------------------------------------------------
-  K_sd           0.2343  #####################
-  K_grad         0.2338  #####################
-  K_nbr          0.2047  ##################
-  K_prob         0.1742  ################
-  K              0.1531  ##############
+  Th_K           0.1108  ##########
+  Th_U           0.0922  ########
+  Th_sd          0.0754  #######
+  U_sd           0.0630  ######
+  K_sd           0.0628  ######
+  U_grad         0.0596  #####
+  U_K            0.0583  #####
+  K_grad         0.0547  #####
+  Th_grad        0.0536  #####
+  K_nbr          0.0531  #####
+  U_prob         0.0509  #####
+  K_prob         0.0475  ####
+  U_nbr          0.0405  ####
+  Th_prob        0.0383  ###
+  K              0.0324  ###
+  total_count    0.0305  ###
+  U              0.0283  ###
+  Th             0.0252  ##
+  Th_nbr         0.0230  ##

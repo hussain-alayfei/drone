@@ -75,8 +75,13 @@ describe("us-grid binary", () => {
           expect(Number.isNaN(got), `cell ${c.col},${c.row} should be nodata`)
             .toBe(true);
         } else {
-          // التكميم إلى Uint16 يسمح بانحراف ضئيل فقط
-          expect(got).toBeCloseTo(c.expected, 3);
+          // أقصى انحراف مسموح = نصف خطوة تكميم Uint16 لهذه القناة بالضبط
+          const { min, max } = header.range[c.channel];
+          const halfStep = (max - min) / 65534 / 2 + 1e-9;
+          expect(
+            Math.abs(got - c.expected),
+            `${c.channel} @ ${c.col},${c.row}`,
+          ).toBeLessThanOrEqual(halfStep);
         }
       }
     },

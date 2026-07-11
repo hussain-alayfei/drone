@@ -1,44 +1,62 @@
 /**
- * اختبار المطابقة Python ↔ TypeScript:
- * كل حالة في parity_cases.json حُسبت احتمالاتها بـ sklearn في export_web_model.py.
- * أي فرق > 1e-9 يعني انحراف منطق (ترتيب خصائص، معادلة، مشي الأشجار).
+ * اختبار التطابق: مشي الأشجار في المتصفح يجب أن يعيد نفس تنبؤات sklearn
+ * (clay/sand) لنفس القراءات، والصنف المشتق يجب أن يطابق مثلث USDA في بايثون.
+ * الحالات من export_web_model.py — لو انحرف أحد الطرفين ينكشف هنا.
  */
 import { beforeAll, describe, expect, it } from "vitest";
 import cases from "./parity_cases.json";
-import { ensureModel, predict, type SoilClass } from "./predict";
+import {
+  ensureModel,
+  predict,
+  toSoilClass,
+  usdaTexture,
+  type GammaReading,
+} from "./predict";
+
+interface Case {
+  reading: GammaReading;
+  expected: { clay: number; sand: number; soil: string };
+}
 
 beforeAll(async () => {
   await ensureModel();
 });
 
-describe("RandomForest parity with sklearn", () => {
-  it.each(cases.map((c, i) => [i, c] as const))(
-    "case %i matches Python probabilities",
-    (_i, c) => {
-      const { probs } = predict(c.raw);
-      for (const cls of Object.keys(c.expected) as SoilClass[]) {
-        expect(probs[cls]).toBeCloseTo(c.expected[cls], 9);
-      }
-    },
-  );
-
-  it("predicts Sandy for a quartz-poor reading", () => {
-    const { soil } = predict({
-      K_pct: 0.5,
-      U_ppm: 1.0,
-      Th_ppm: 3.5,
-      Cs137_Bq_kg: 2.0,
+describe("regression parity with sklearn", () => {
+  (cases as Case[]).forEach((c, i) => {
+    it(`case ${i}: K=${c.reading.K.toFixed(2)} Th=${c.reading.Th.toFixed(2)}`, () => {
+      const p = predict(c.reading);
+      expect(p.clay).toBeCloseTo(c.expected.clay, 6);
+      expect(p.sand).toBeCloseTo(c.expected.sand, 6);
+      expect(p.soil).toBe(c.expected.soil);
     });
-    expect(soil).toBe("Sandy");
+  });
+});
+
+describe("USDA texture triangle (canonical points)", () => {
+  const canon: [number, number, number, string][] = [
+    [95, 3, 2, "sand"],
+    [82, 12, 6, "loamy sand"],
+    [65, 25, 10, "sandy loam"],
+    [40, 40, 20, "loam"],
+    [20, 65, 15, "silt loam"],
+    [5, 90, 5, "silt"],
+    [60, 15, 25, "sandy clay loam"],
+    [33, 34, 33, "clay loam"],
+    [10, 57, 33, "silty clay loam"],
+    [50, 5, 45, "sandy clay"],
+    [7, 48, 45, "silty clay"],
+    [20, 20, 60, "clay"],
+  ];
+  canon.forEach(([sand, silt, clay, want]) => {
+    it(`${want} (${sand}/${silt}/${clay})`, () => {
+      expect(usdaTexture(sand, silt, clay)).toBe(want);
+    });
   });
 
-  it("predicts Clay for a high-radionuclide reading", () => {
-    const { soil } = predict({
-      K_pct: 2.4,
-      U_ppm: 3.9,
-      Th_ppm: 14.5,
-      Cs137_Bq_kg: 3.0,
-    });
-    expect(soil).toBe("Clay");
+  it("groups by clay content (clay loam is Clay, not Loam)", () => {
+    expect(toSoilClass(33, 33)).toBe("Clay");
+    expect(toSoilClass(20, 40)).toBe("Loam");
+    expect(toSoilClass(5, 90)).toBe("Sandy");
   });
 });

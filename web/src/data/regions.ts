@@ -1,12 +1,12 @@
 /**
- * التوزيع الجيولوجي التقريبي لأنواع التربة في كل منطقة سعودية —
- * أوزان مبررة جغرافياً (رمال الدهناء والربع الخالي شرقاً، المدرجات
- * البازلتية في عسير والباحة، السهول الفيضية الطينية في جازان، الأودية
- * الزراعية في القصيم والجوف…). عند كل فحص تُسحب قراءة جاما واقعية من
- * بصمة النوع المُختار (نفس معاملات generate_dataset.py) ثم يصنّفها
- * الموديل الحقيقي — فالنتائج تتغير طبيعياً بين الضغطات وتبقى منطقية.
+ * عرض «المملكة — إسقاط تقديري»: لا يوجد مسح إشعاعي جوي مفتوح للسعودية،
+ * فهذا العرض يوضح شكل النشر المستهدف ولا يدّعي قياساً. عند كل فحص تُسحب
+ * قراءة جاما من البصمة الإشعاعية المعروفة للنوع الجيولوجي المرجّح في
+ * المنطقة (رمال الدهناء شرقاً، بازلت عسير، طين سهل جازان الفيضي…)، ثم
+ * يصنّفها نفس الموديل الحقيقي الذي يعمل على بيانات USGS — الموديل واحد،
+ * ومصدر القراءة هو المختلف، والواجهة تصرّح بذلك.
  */
-import { doseRate, type GammaReading, type SoilClass } from "../model/predict";
+import type { GammaReading, SoilClass } from "../model/predict";
 
 type Weights = Record<SoilClass, number>;
 
@@ -65,7 +65,10 @@ export const regionGeology: Record<string, { weights: Weights; hint: string }> =
   },
 };
 
-/** بصمات الأنواع — نفس CLASS_STATS في generate_dataset.py */
+/**
+ * بصمات الأنواع (متوسط، انحراف) لكل قناة — من أدبيات القياس الطيفي للتربة.
+ * ملاحظة: مجموعة Clay هنا تشمل clay loam فما فوق (نفس تجميع الموديل الحقيقي).
+ */
 const CLASS_STATS: Record<SoilClass, { K: [number, number]; U: [number, number]; Th: [number, number] }> = {
   Sandy: { K: [0.6, 0.25], U: [1.2, 0.5], Th: [4.0, 1.5] },
   Silty: { K: [1.5, 0.35], U: [2.6, 0.6], Th: [9.0, 2.0] },
@@ -92,7 +95,7 @@ function pickSoil(weights: Weights): SoilClass {
   return "Sandy";
 }
 
-/** سحب قراءة جاما واقعية من التوزيع الجيولوجي للمنطقة */
+/** سحب قراءة جاما من التوزيع الجيولوجي المرجّح للمنطقة */
 export function sampleReading(regionId: string): GammaReading {
   const geo = regionGeology[regionId];
   const soil = pickSoil(geo.weights);
@@ -102,17 +105,9 @@ export function sampleReading(regionId: string): GammaReading {
   const f = randn();
   const mix = (z: number) => 0.75 * f + 0.66 * z;
 
-  const K = Math.max(s.K[0] + s.K[1] * mix(randn()), 0.05);
-  const U = Math.max(s.U[0] + s.U[1] * mix(randn()), 0.1);
-  const Th = Math.max(s.Th[0] + s.Th[1] * mix(randn()), 0.5);
-  const Cs = +(1.8 + Math.random() * 2.4).toFixed(2);
-  const tc = doseRate(K, U, Th) * (1 + (Math.random() - 0.5) * 0.16);
-
   return {
-    K_pct: +K.toFixed(3),
-    U_ppm: +U.toFixed(3),
-    Th_ppm: +Th.toFixed(3),
-    Cs137_Bq_kg: Cs,
-    total_count_nGy_h: +Math.max(tc, 1).toFixed(1),
+    K: +Math.max(s.K[0] + s.K[1] * mix(randn()), 0.05).toFixed(3),
+    U: +Math.max(s.U[0] + s.U[1] * mix(randn()), 0.1).toFixed(3),
+    Th: +Math.max(s.Th[0] + s.Th[1] * mix(randn()), 0.5).toFixed(3),
   };
 }
