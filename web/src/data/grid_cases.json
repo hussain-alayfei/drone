@@ -1,0 +1,86 @@
+[
+ {
+  "channel": "K",
+  "col": 73,
+  "row": 140,
+  "expected": 1.4348316066194444
+ },
+ {
+  "channel": "K",
+  "col": 88,
+  "row": 83,
+  "expected": 1.1287435748527779
+ },
+ {
+  "channel": "K",
+  "col": 110,
+  "row": 95,
+  "expected": 1.8146599357350002
+ },
+ {
+  "channel": "K",
+  "col": 87,
+  "row": 110,
+  "expected": 1.4243201723255552
+ },
+ {
+  "channel": "K",
+  "col": 105,
+  "row": 97,
+  "expected": 1.6794788838227774
+ },
+ {
+  "channel": "K",
+  "col": 21,
+  "row": 43,
+  "expected": 1.5562925573780553
+ },
+ {
+  "channel": "K",
+  "col": 79,
+  "row": 15,
+  "expected": 2.2066954250433337
+ },
+ {
+  "channel": "K",
+  "col": 74,
+  "row": 160,
+  "expected": 1.3509750853866664
+ },
+ {
+  "channel": "K",
+  "col": 48,
+  "row": 39,
+  "expected": 2.5378235412702774
+ },
+ {
+  "channel": "K",
+  "col": 47,
+  "row": 112,
+  "expected": 2.6582917405633335
+ },
+ {
+  "channel": "K",
+  "col": 48,
+  "row": 40,
+  "expected": 2.334362893516112
+ },
+ {
+  "channel": "K",
+  "col": 33,
+  "row": 128,
+  "expected": 0.6911583356113055
+ },
+ {
+  "channel": "K",
+  "col": 107,
+  "row": 55,
+  "expected": null
+ },
+ {
+  "channel": "K",
+  "col": 17,
+  "row": 41,
+  "expected": null
+ }
+]

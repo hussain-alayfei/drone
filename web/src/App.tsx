@@ -1,27 +1,40 @@
+import { lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import Hero from "./sections/Hero";
-import Problem from "./sections/Problem";
-import Solution from "./sections/Solution";
-import Pipeline from "./sections/Pipeline";
-import Demo from "./sections/Demo";
-import SeedBullet3D from "./sections/SeedBullet3D";
-import Specs from "./sections/Specs";
-import Pricing from "./sections/Pricing";
+import ScrollToTop from "./components/ScrollToTop";
+import Home from "./pages/Home";
+
+// صفحة الديمو تسحب three وشبكة بيانات USGS — تُحمَّل عند دخولها فقط
+// كي تبقى الصفحة التعريفية خفيفة.
+const Demo = lazy(() => import("./pages/Demo"));
+
+function DemoFallback() {
+  return (
+    <div className="flex min-h-[60vh] items-center justify-center">
+      <p className="text-ink-soft">…جارٍ تحميل التجربة الحية</p>
+    </div>
+  );
+}
 
 export default function App() {
   return (
     <>
+      <ScrollToTop />
       <Nav />
       <main>
-        <Hero />
-        <Problem />
-        <Solution />
-        <Pipeline />
-        <Demo />
-        <SeedBullet3D />
-        <Specs />
-        <Pricing />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/demo"
+            element={
+              <Suspense fallback={<DemoFallback />}>
+                <Demo />
+              </Suspense>
+            }
+          />
+          <Route path="*" element={<Home />} />
+        </Routes>
       </main>
       <Footer />
     </>
